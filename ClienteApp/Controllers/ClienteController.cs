@@ -81,24 +81,38 @@ namespace ClienteApp.Controllers
         [Route("atualizar")]
         public async Task<IActionResult> Put(string cpf, [FromBody] UpdateClienteDto clientDto)
         {
-            Result result = await clienteService.UpdateAsync(cpf, clientDto);
+            try
+            {
+                Result result = await clienteService.UpdateAsync(cpf, clientDto);
 
-            if (result.IsFailed)
-                return NotFound();
+                if (result.IsFailed)
+                    return NotFound();
 
-            return NoContent();
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
 
         [HttpDelete]
         [Route("remover")]
         public async Task<IActionResult> Delete(string cpf)
         {
-            Result result = await clienteService.DeleteAsync(cpf);
+            try
+            {
+                Result result = await clienteService.DeleteAsync(cpf);
 
-            if (result.IsFailed)
-                return NotFound();
+                if (result.IsFailed)
+                    return NotFound();
 
-            return NoContent(); 
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
     }
 }
