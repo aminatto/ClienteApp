@@ -15,5 +15,12 @@ namespace ClienteApp.Data
 
         public DbSet<Endereco> Enderecos { get; set; }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Cliente>()
+                .HasIndex(b => b.Cpf)
+                .IsUnique();
+        }
+
     }
 }
